@@ -1,6 +1,6 @@
-﻿namespace PointOfSale.ViewModels
+﻿namespace PointOfSaleDomain
 {
-    public class PointOfSaleViewModel
+    public class PointOfSale
     {
         /// <summary>
         /// valor total a ser pago

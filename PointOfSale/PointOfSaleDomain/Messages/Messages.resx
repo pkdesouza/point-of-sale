@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HasNotValue" xml:space="preserve">
+    <value>Os valores de entrada não podem ser negativos ou zerados</value>
+  </data>
+  <data name="ResponseChange" xml:space="preserve">
+    <value>Valor do troco {0}, recebidos em notas de {1} e moedas de {2}</value>
+  </data>
   <data name="ValueToPayIsSmaller" xml:space="preserve">
-    <value>"Valor a ser pago é inferior a total a ser pago"</value>
+    <value>Valor a ser pago é inferior a total a ser pago</value>
   </data>
 </root>

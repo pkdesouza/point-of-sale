@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using PointOfSale.AppStart;
 
 namespace PointOfSale
 {
@@ -24,8 +19,16 @@ namespace PointOfSale
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterDependencyServices();
             services.AddControllers();
             services.AddHealthChecks();
+            services.AddMemoryCache();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Point Of Sale API", Version = "v1" });
+                c.OperationFilter<SwaggerConfig.AddAuthorizationHeaderParameterOperationFilter>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,6 +49,13 @@ namespace PointOfSale
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health-check");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
+        
     }
 }

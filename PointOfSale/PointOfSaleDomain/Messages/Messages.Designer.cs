@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PointOfSale.Exceptions {
+namespace PointOfSaleDomain.Messages {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PointOfSale.Exceptions {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PointOfSale.Exceptions.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PointOfSaleDomain.Messages.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,25 @@ namespace PointOfSale.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Valor a ser pago é inferior a total a ser pago&quot;.
+        ///   Looks up a localized string similar to Os valores de entrada não podem ser negativos ou zerados.
+        /// </summary>
+        public static string HasNotValue {
+            get {
+                return ResourceManager.GetString("HasNotValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor do troco {0}, recebidos em notas de {1} e moedas de {2}.
+        /// </summary>
+        public static string ResponseChange {
+            get {
+                return ResourceManager.GetString("ResponseChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor a ser pago é inferior a total a ser pago.
         /// </summary>
         public static string ValueToPayIsSmaller {
             get {

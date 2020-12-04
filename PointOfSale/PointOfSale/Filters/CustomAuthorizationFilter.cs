@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Configuration;
 
 namespace PointOfSale.Filters
@@ -8,8 +9,9 @@ namespace PointOfSale.Filters
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!context.HttpContext.Request.Headers.ContainsKey("X-SECRETKEY") ||
-                context.HttpContext.Request.Headers["X-SECRETKEY"] != ConfigurationManager.AppSettings["X-SECRETKEY"])
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("UseAuthentication")) && 
+                !context.HttpContext.Request.Headers.ContainsKey("SecretKey") ||
+                context.HttpContext.Request.Headers["SecretKey"] != ConfigurationManager.AppSettings["SecretKey"])
                 context.Result = new UnauthorizedResult();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PointOfSale.Exceptions
+namespace PointOfSaleDomain.Exceptions
 {
     public class PointOfSaleException: Exception
     {
