@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PointOfSaleDomain\PointOfSaleDomain.csproj" />
+    <ProjectReference Include="..\PointOfSaleInfra\PointOfSaleInfra.csproj" />
     <ProjectReference Include="..\PointOfSaleService\PointOfSaleService.csproj" />
   </ItemGroup>
 

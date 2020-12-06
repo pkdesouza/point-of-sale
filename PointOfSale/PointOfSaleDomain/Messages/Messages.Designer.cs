@@ -70,7 +70,7 @@ namespace PointOfSaleDomain.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valor do troco {0}, recebidos em notas de {1} e moedas de {2}.
+        ///   Looks up a localized string similar to Valor do troco {0}, recebidos na quantia de {1} {2}.
         /// </summary>
         public static string ResponseChange {
             get {

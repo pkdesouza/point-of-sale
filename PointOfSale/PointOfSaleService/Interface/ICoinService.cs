@@ -8,6 +8,6 @@ namespace PointOfSaleService.Interface
 {
     public interface ICoinService
     {
-        Task<List<Money>> GetCoins();
+        Task<List<Money>> GetCoinsAsync();
     }
 }

@@ -25,7 +25,7 @@ namespace PointOfSale.Controllers
         public async Task<IActionResult> CalculeChange(decimal valueToPay, decimal totalValue) {
             try
             {
-                var result = await ChangeService.GetChange(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue});
+                var result = await ChangeService.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue});
                 return Ok(result);
             }
             catch (Exception ex) when (ex is PointOfSaleException)

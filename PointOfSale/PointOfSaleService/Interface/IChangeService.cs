@@ -4,6 +4,6 @@ namespace PointOfSaleService.Interface
 {
     public interface IChangeService
     {
-        Task<ChangeComposition> GetChange(PointOfSale pointOfSale);
+        Task<ChangeComposition> GetChangeAsync(PointOfSale pointOfSale);
     }
 }

@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace PointOfSaleService
 {
-    public class CoinService : BaseService, ICoinService
+    public class BillService : BaseService, IBillService
     {
-        public CoinService()
-        {
-        }
-        public async Task<List<Money>> GetCoinsAsync()
+        public async Task<List<Money>> GetBillsAsync()
         {
             using var con = Connection;
-            return (await con.QueryAsync<Money>("SELECT c.Value / 100 as Value FROM Coin c")).ToList();
+            return (await con.QueryAsync<Money>("SELECT b.Value FROM Bill b")).ToList();
         }
     }
 }

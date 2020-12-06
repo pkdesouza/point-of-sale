@@ -121,7 +121,7 @@
     <value>Os valores de entrada não podem ser negativos ou zerados</value>
   </data>
   <data name="ResponseChange" xml:space="preserve">
-    <value>Valor do troco {0}, recebidos em notas de {1} e moedas de {2}</value>
+    <value>Valor do troco {0}, recebidos na quantia de {1} {2}</value>
   </data>
   <data name="ValueToPayIsSmaller" xml:space="preserve">
     <value>Valor a ser pago é inferior a total a ser pago</value>

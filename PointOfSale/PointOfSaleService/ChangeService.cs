@@ -9,58 +9,46 @@ namespace PointOfSaleService
 {
     public class ChangeService : IChangeService
     {
-        public ICashService CashService { get; set; }
-        public ICoinService CoinService { get; set; }
+        private IBillService CashService { get; set; }
+        private ICoinService CoinService { get; set; }
         private List<Money> Coins { get; set; }
-        private List<Money> Cashes { get; set; }
+        private List<Money> MoneyBills { get; set; }
 
-        public ChangeService(ICashService cashService, ICoinService coinService)
+        public ChangeService(IBillService cashService, ICoinService coinService)
         {
             CashService = cashService;
             CoinService = coinService;
         }
-        public async Task<ChangeComposition> GetChange(PointOfSale pointOfSale)
+
+        public async Task<ChangeComposition> GetChangeAsync(PointOfSale pointOfSale)
         {
             pointOfSale.Validate();
-            Cashes = await CashService.GetCashesAsync();
-            Coins = await CoinService.GetCoins();
-
-            var result = CalculeChange(pointOfSale.ValueToPay - pointOfSale.TotalValue, new ChangeComposition());
-            result.ResponseMessage = result.ToString();
-            return result;
+            MoneyBills = await CashService.GetBillsAsync();
+            Coins = await CoinService.GetCoinsAsync();
+            return CalculeChange(pointOfSale.ValueToPay - pointOfSale.TotalValue, new ChangeComposition());
         }
 
-        private ChangeComposition CalculeChange(decimal change, ChangeComposition charge)
+        private ChangeComposition CalculeChange(decimal change, ChangeComposition changeComposition)
         {
-            for (int i = 0; i < Cashes.Count && charge.TotalChange < change; i++)
-            {
-                var bill = Cashes.ElementAt(i);
-                var billValue = bill.Value;
-
-                if (billValue <= change - charge.TotalChange)
-                {
-                    charge.MoneyBills.Add(bill);
-                    charge.TotalChange += billValue;
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < Coins.Count && charge.TotalChange < change; i++)
-            {
-                var coin = Coins.ElementAt(i);
-                var coinValue = coin.Value / 100;
-
-                if (coinValue <= change - charge.TotalChange)
-                {
-                    charge.Coins.Add(coin);
-                    charge.TotalChange += coinValue;
-                    i--;
-                }
-            }
-
-            return charge;
+            SetChange(change, changeComposition, MoneyBills, changeComposition.MoneyBills);
+            SetChange(change, changeComposition, Coins, changeComposition.Coins);
+            return changeComposition;
         }
 
+        private void SetChange(decimal change, ChangeComposition changeComposition, List<Money> moneyOnAccount, List<Money> moneyToReceive)
+        {
+            for (int i = 0; i < moneyOnAccount.Count && changeComposition.TotalChange < change; i++)
+            {
+                var amount = moneyOnAccount.ElementAt(i);
+                var value = amount.Value;
 
+                if (value <= change - changeComposition.TotalChange)
+                {
+                    moneyToReceive.Add(amount);
+                    changeComposition.AddTotalChange(value);
+                    i--;
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PointOfSaleInfra;
 using PointOfSaleService;
 using PointOfSaleService.Interface;
 
@@ -9,11 +10,11 @@ namespace PointOfSale.AppStart
         public static IServiceCollection RegisterDependencyServices(
             this IServiceCollection services)
         {
-            #region services
-            services.AddScoped<ICashService, CashService>();
+            services.AddTransient<PointOfSaleContext, PointOfSaleContext>();
+            services.AddScoped<IBillService, BillService>();
             services.AddScoped<ICoinService, CoinService>();
             services.AddScoped<IChangeService, ChangeService>();
-            #endregion
+
             return services;
         }
     }
