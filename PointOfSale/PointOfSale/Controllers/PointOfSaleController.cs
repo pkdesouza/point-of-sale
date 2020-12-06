@@ -15,9 +15,27 @@ namespace PointOfSale.Controllers
     {
         private readonly ILogger<PointOfSaleController> _logger;
         public IChangeService ChangeService { get; set; }
-        public PointOfSaleController(IChangeService changeService)
+        public ITransactionService TransactionService { get; set; }
+        public PointOfSaleController(IChangeService changeService, ITransactionService transactionService)
         {
             ChangeService = changeService;
+            TransactionService = transactionService;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetTransactions()
+        {
+            try
+            {
+                return Ok(await TransactionService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
         }
 
         [HttpPost]

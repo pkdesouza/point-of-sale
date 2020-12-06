@@ -11,6 +11,7 @@ namespace PointOfSale.AppStart
             this IServiceCollection services)
         {
             services.AddTransient<PointOfSaleContext, PointOfSaleContext>();
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IBillService, BillService>();
             services.AddScoped<ICoinService, CoinService>();
             services.AddScoped<IChangeService, ChangeService>();

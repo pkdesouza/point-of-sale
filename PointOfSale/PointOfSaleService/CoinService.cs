@@ -9,9 +9,6 @@ namespace PointOfSaleService
 {
     public class CoinService : BaseService, ICoinService
     {
-        public CoinService()
-        {
-        }
         public async Task<List<Money>> GetCoinsAsync()
         {
             using var con = Connection;

@@ -12,6 +12,7 @@ namespace PointOfSaleInfra
 
         public virtual DbSet<Bill> Bill { get; set; }
         public virtual DbSet<Coin> Coin { get; set; }
+        public virtual DbSet<Transaction> Transaction { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
