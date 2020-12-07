@@ -61,7 +61,7 @@ namespace PointOfSale
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Point Of Sale API v1");
             });
         }
         

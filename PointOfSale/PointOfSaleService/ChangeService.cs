@@ -4,6 +4,7 @@ using PointOfSaleDomain.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace PointOfSaleService
 {
@@ -27,8 +28,8 @@ namespace PointOfSaleService
             pointOfSale.Validate();
             Bills = await BillService.GetBillsAsync();
             Coins = await CoinService.GetCoinsAsync();
-            var result = CalculeChange(pointOfSale.ValueToPay - pointOfSale.TotalValue, new ChangeComposition());
-            await TransactionService.Register(pointOfSale, result);
+            var result = CalculeChange(Math.Round(pointOfSale.ValueToPay - pointOfSale.TotalValue, 2, MidpointRounding.ToZero), new ChangeComposition());
+            await TransactionService.RegisterAsync(pointOfSale, result);
             return result;
         }
 
@@ -46,7 +47,7 @@ namespace PointOfSaleService
                 var amount = moneyOnAccount.ElementAt(i);
                 var value = amount.Value;
 
-                if (value <= change - changeComposition.TotalChange)
+                if (value <= Math.Round(change - changeComposition.TotalChange, 2, MidpointRounding.ToZero))
                 {
                     moneyToReceive.Add(amount);
                     changeComposition.AddTotalChange(value);

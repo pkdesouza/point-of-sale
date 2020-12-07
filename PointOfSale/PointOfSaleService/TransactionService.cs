@@ -18,7 +18,7 @@ namespace PointOfSaleService
             _configuration = configuration;
         }
 
-        public async Task Register(PointOfSale pointOfSale, ChangeComposition composition)
+        public async Task RegisterAsync(PointOfSale pointOfSale, ChangeComposition composition)
         {
             using var context = new PointOfSaleContext(_configuration);
             await context.Transactions.AddAsync(new Transactions
@@ -31,7 +31,7 @@ namespace PointOfSaleService
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<Transactions>> GetAll()
+        public async Task<List<Transactions>> GetAllAsync()
         {
             using var con = Connection;
             return (await con.QueryAsync<Transactions>(@"SELECT t.ValueToPay,

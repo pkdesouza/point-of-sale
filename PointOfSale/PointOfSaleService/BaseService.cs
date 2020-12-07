@@ -12,7 +12,7 @@ namespace PointOfSaleService
         {
             _configuration = configuration;
         }
-        public IDbConnection Connection
+        protected IDbConnection Connection
         {
             get
             {

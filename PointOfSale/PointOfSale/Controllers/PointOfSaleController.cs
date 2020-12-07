@@ -30,7 +30,7 @@ namespace PointOfSale.Controllers
             try
             {
                 _logger.LogInformation($"Executando o método {nameof(GetTransactions)}");
-                return Ok(await TransactionService.GetAll());
+                return Ok(await TransactionService.GetAllAsync());
             }
             catch (Exception ex)
             {

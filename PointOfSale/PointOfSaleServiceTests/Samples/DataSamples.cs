@@ -16,7 +16,7 @@ namespace PointOfSaleServiceTests.Samples
             yield return new object[] { DataMock.Random.Decimal(20, 200), DataMock.Random.Decimal(10, 20) };
             yield return new object[] { DataMock.Random.Decimal(30, 300), DataMock.Random.Decimal(10, 30) };
             yield return new object[] { DataMock.Random.Decimal(1000, 10000), DataMock.Random.Decimal(100, 900) };
-            yield return new object[] { DataMock.Random.Decimal(1, 10), DataMock.Random.Decimal(0, 1) }; 
+            yield return new object[] { DataMock.Random.Decimal(1, 10), DataMock.Random.Decimal(0, 1) };
         }
         public static IEnumerable<object[]> DataInputsZeroOrNegative()
         {

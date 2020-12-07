@@ -7,8 +7,8 @@ namespace PointOfSaleService.Interface
 {
     public interface ITransactionService
     {
-        Task Register(PointOfSale pointOfSale, ChangeComposition changeComposition);
+        Task RegisterAsync(PointOfSale pointOfSale, ChangeComposition changeComposition);
 
-        Task<List<Transactions>> GetAll();
+        Task<List<Transactions>> GetAllAsync();
     }
 }

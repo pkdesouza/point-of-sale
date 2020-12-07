@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PointOfSaleDomain;
 using PointOfSaleDomain.Messages;
 using PointOfSaleServiceTests.Samples;
 using System;
@@ -17,7 +16,7 @@ namespace PointOfSaleService.Tests
         
         public ChangeServiceTests()
         {
-            IConfiguration configuration = null;
+            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
             ChangeServiceTest = new ChangeService(new BillService(configuration), new CoinService(configuration), new TransactionService(configuration));
         }
 
@@ -25,7 +24,7 @@ namespace PointOfSaleService.Tests
         [DynamicData(nameof(DataSamples.DataInputsValid), typeof(DataSamples), DynamicDataSourceType.Method)]
         public async Task GetChangeTest(decimal valueToPay, decimal totalValue)
         {
-            var result = await ChangeServiceTest.GetChangeAsync(new PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
+            var result = await ChangeServiceTest.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
             Assert.IsNotNull(result);
             Assert.IsTrue(result.TotalChange == Math.Round(valueToPay - totalValue, 2, MidpointRounding.ToZero));
         }
@@ -36,7 +35,7 @@ namespace PointOfSaleService.Tests
         {
             try
             {
-                var result = await ChangeServiceTest.GetChangeAsync(new PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
+                var result = await ChangeServiceTest.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
                 Assert.Fail();
             }
             catch (Exception ex)
@@ -51,7 +50,7 @@ namespace PointOfSaleService.Tests
         {
             try
             {
-                var result = await ChangeServiceTest.GetChangeAsync(new PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
+                var result = await ChangeServiceTest.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
                 Assert.Fail();
             }
             catch (Exception ex)
