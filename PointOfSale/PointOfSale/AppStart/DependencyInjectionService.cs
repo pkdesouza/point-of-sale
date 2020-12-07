@@ -10,7 +10,6 @@ namespace PointOfSale.AppStart
         public static IServiceCollection RegisterDependencyServices(
             this IServiceCollection services)
         {
-            services.AddTransient<PointOfSaleContext, PointOfSaleContext>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IBillService, BillService>();
             services.AddScoped<ICoinService, CoinService>();

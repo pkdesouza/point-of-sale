@@ -9,6 +9,6 @@ namespace PointOfSaleService.Interface
     {
         Task Register(PointOfSale pointOfSale, ChangeComposition changeComposition);
 
-        Task<List<Transaction>> GetAll();
+        Task<List<Transactions>> GetAll();
     }
 }

@@ -1,8 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PointOfSaleDomain;
 using PointOfSaleDomain.Messages;
 using PointOfSaleServiceTests.Samples;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PointOfSaleService.Tests
@@ -11,10 +13,12 @@ namespace PointOfSaleService.Tests
     public class ChangeServiceTests
     {
         private ChangeService ChangeServiceTest { get; set; }
+
         
         public ChangeServiceTests()
         {
-            ChangeServiceTest = new ChangeService(new BillService(), new CoinService());
+            IConfiguration configuration = null;
+            ChangeServiceTest = new ChangeService(new BillService(configuration), new CoinService(configuration), new TransactionService(configuration));
         }
 
         [DataTestMethod]
@@ -40,6 +44,7 @@ namespace PointOfSaleService.Tests
                 Assert.IsTrue(ex.Message == Messages.HasNotValue);
             }
         }
+
         [DataTestMethod]
         [DynamicData(nameof(DataSamples.DataInputValueToPayIsSmaller), typeof(DataSamples), DynamicDataSourceType.Method)]
         public async Task GetChangeValueToPayIsSmallerTest(decimal valueToPay, decimal totalValue)

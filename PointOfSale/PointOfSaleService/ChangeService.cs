@@ -9,15 +9,15 @@ namespace PointOfSaleService
 {
     public class ChangeService : IChangeService
     {
-        private IBillService CashService { get; set; }
+        private IBillService BillService { get; set; }
         private ICoinService CoinService { get; set; }
         private ITransactionService TransactionService { get; set; }
         private List<Money> Coins { get; set; }
-        private List<Money> MoneyBills { get; set; }
+        private List<Money> Bills { get; set; }
 
-        public ChangeService(IBillService cashService, ICoinService coinService, ITransactionService transactionService)
+        public ChangeService(IBillService billService, ICoinService coinService, ITransactionService transactionService)
         {
-            CashService = cashService;
+            BillService = billService;
             CoinService = coinService;
             TransactionService = transactionService;
         }
@@ -25,7 +25,7 @@ namespace PointOfSaleService
         public async Task<ChangeComposition> GetChangeAsync(PointOfSale pointOfSale)
         {
             pointOfSale.Validate();
-            MoneyBills = await CashService.GetBillsAsync();
+            Bills = await BillService.GetBillsAsync();
             Coins = await CoinService.GetCoinsAsync();
             var result = CalculeChange(pointOfSale.ValueToPay - pointOfSale.TotalValue, new ChangeComposition());
             await TransactionService.Register(pointOfSale, result);
@@ -34,7 +34,7 @@ namespace PointOfSaleService
 
         private ChangeComposition CalculeChange(decimal change, ChangeComposition changeComposition)
         {
-            SetChange(change, changeComposition, MoneyBills, changeComposition.MoneyBills);
+            SetChange(change, changeComposition, Bills, changeComposition.Bills);
             SetChange(change, changeComposition, Coins, changeComposition.Coins);
             return changeComposition;
         }

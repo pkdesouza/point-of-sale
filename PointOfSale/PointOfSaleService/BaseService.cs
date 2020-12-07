@@ -1,19 +1,22 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using System.Data;
-using System.Text;
+using System.Data.SqlClient;
 
 namespace PointOfSaleService
 {
     public abstract class BaseService
     {
+        private readonly IConfiguration _configuration;
+        public BaseService(IConfiguration configuration) 
+        {
+            _configuration = configuration;
+        }
         public IDbConnection Connection
         {
             get
             {
-                return new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]);
+                return new SqlConnection(_configuration.GetSection("ConnectionString").Value);
             }
         }
     }
