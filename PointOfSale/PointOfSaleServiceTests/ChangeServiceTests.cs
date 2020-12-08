@@ -13,7 +13,7 @@ namespace PointOfSaleService.Tests
     {
         private ChangeService ChangeServiceTest { get; set; }
 
-        
+
         public ChangeServiceTests()
         {
             var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();

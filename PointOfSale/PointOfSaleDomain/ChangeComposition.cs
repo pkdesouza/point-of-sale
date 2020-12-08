@@ -16,7 +16,7 @@ namespace PointOfSaleDomain
         public List<Money> Coins { get; set; }
         public List<Money> Bills { get; set; }
         public string ResponseMessage { get => ToString(); }
-        
+
         public void AddTotalChange(decimal value)
         {
             TotalChange += value;

@@ -1,8 +1,8 @@
 # Projeto Ponto de Venda
-
+API .NET Core 3.1 + SQL Server + Docker
 ## Objetivo
-objetivo do projeto contempla em resolver a seguinte situação do cotidiano dos operadores de pontos de venda (PDV): <br><br>
-Esses profissionais tem grande responsabilidade em suas mãos e a maior parte do seu tempo é gasto recebendo valores de clientes e, em alguns casos, fornecendo troco. <br> <br>
+Objetivo do projeto contempla em resolver a seguinte situação do cotidiano dos operadores de pontos de venda (PDV): <br><br>
+Esses profissionais têm  grande responsabilidade em suas mãos e a maior parte do seu tempo é gasto recebendo valores de clientes e, em alguns casos, fornecendo troco. <br> <br>
 Seu desafio é criar uma API que leia o valor total a ser pago e o valor efetivamente pago pelo cliente, em seguida informe o menor número de cédulas e moedas que devem ser fornecidas como troco.
 
 ## Regras
@@ -17,11 +17,11 @@ Exemplo:<br><br>
 ```Resultado Esperado: Entregar 1 nota de R$50,00, 1 nota de R$20,00 e 1 nota de R$10,00```<br>
 
 ## Configurações 
-Para habilitar ou desabilitar alguma configuração abaixo, é necessário alterar os valores no appsettings da aplicação.
-**UseCache** 
+Para habilitar ou desabilitar alguma configuração abaixo, é necessário alterar os valores no appsettings da aplicação.<br>
+**UseCache:**
 ```Configuração responsável para adicionar uma camada de cache de 10 minutos ao consumir a base de dados```<br>
-**UseAuthentication** 
-```Configuração responsável para adicionar uma chave de autenticação na aplicação. Enviar no header: SecretKey: q2JeXqc0OA1OHRAO7KEcnrtazZSeZM16X3NT2Kpa```<br>
+**UseAuthentication:** 
+```Configuração responsável para adicionar uma chave de autenticação na aplicação. Enviar no header da requisição o a chave SecretKey: q2JeXqc0OA1OHRAO7KEcnrtazZSeZM16X3NT2Kpa```<br>
 
 ## Testes 
 Aplicação está coberta por testes para manter a integridade da informação. Para executa-los basta ir no projeto PointOfSaleServiceTests e utilizar o Test Explorer. Os testes foram realizados com dados dinamicos e estaticos.
@@ -34,11 +34,11 @@ Acesse o github https://github.com/pkdesouza/point-of-sale, após o acesso, sele
 https://github.com/pkdesouza/point-of-sale.git
 ```
 
-Com isso fazemos o download do codigo fonte que precisamos. Estou ASP .NET 3.1.
+Com isso fazemos o download do código fonte que precisamos.
 
 ### Construindo as imagens
 
-Acesse a pasta raíz do projeto(./PointOfSale/) e construa cada imagem (API e MSSQL) pelo powershell ou equivalente:
+Acesse a pasta raiz do projeto (./PointOfSale/) e construa cada imagem (API e MSSQL) pelo Powershell ou equivalente:
 
 ```
 docker build -t point-of-sale-image -f PointOfSale/Dockerfile .
@@ -48,16 +48,16 @@ docker pull mcr.microsoft.com/mssql/server:2019-latest
 ```
 
 ### Rodando os containers
-Na pasta raíz do projeto, execute um de cada vez:
+Na pasta raiz do projeto, execute um de cada vez:
 
 ```
 docker run --name mssql-container -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pk@senha06' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 ```
 ```
-docker container run -d --name point-of-sale-api-container -p 3000:80 point-of-sale-image
+docker container run -d --name point-of-sale-api-container -p 3000:80 --link mssql-container point-of-sale-image
 ```
 
-### Agora faça o restore do banco:
+### Agora faça o restore do banco de dados:
 ```
 docker exec -it mssql-container /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Pk@senha06  -Q "
 USE [master]

@@ -34,7 +34,8 @@ namespace PointOfSaleService
         public async Task<List<Transactions>> GetAllAsync()
         {
             using var con = Connection;
-            return (await con.QueryAsync<Transactions>(@"SELECT t.ValueToPay,
+            return (await con.QueryAsync<Transactions>(@"SELECT t.Id, 
+                                                                t.ValueToPay,
                                                                 t.TotalValue,
                                                                 t.Change,
                                                                 t.ChangeMessage,

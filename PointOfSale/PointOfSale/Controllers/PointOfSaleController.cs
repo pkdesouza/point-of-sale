@@ -27,41 +27,18 @@ namespace PointOfSale.Controllers
         [Authorize]
         public async Task<IActionResult> GetTransactions()
         {
-            try
-            {
-                _logger.LogInformation($"Executando o método {nameof(GetTransactions)}");
-                return Ok(await TransactionService.GetAllAsync());
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Ocorreu um erro inesperado na execução do método {nameof(GetTransactions)}", ex);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
+            _logger.LogInformation($"Executando o método {nameof(GetTransactions)}");
+            return Ok(await TransactionService.GetAllAsync());
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CalculeChange(decimal valueToPay, decimal totalValue) 
+        public async Task<IActionResult> CalculeChange(decimal valueToPay, decimal totalValue)
         {
-            try
-            {
-                _logger.LogInformation($"Executando o método {nameof(CalculeChange)}");
-                var result = await ChangeService.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue});
-                _logger.LogInformation($"Execução realizada com sucesso do método {nameof(CalculeChange)}");
-                return Ok(result);
-            }
-            catch (Exception ex) when (ex is PointOfSaleException)
-            {
-                _logger.LogWarning($"Dados invalidos para execução do método {nameof(CalculeChange)}", ex);
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Ocorreu um erro inesperado na execução do método {nameof(CalculeChange)}", ex);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
+            _logger.LogInformation($"Executando o método {nameof(CalculeChange)}");
+            var result = await ChangeService.GetChangeAsync(new PointOfSaleDomain.PointOfSale { ValueToPay = valueToPay, TotalValue = totalValue });
+            _logger.LogInformation($"Execução realizada com sucesso do método {nameof(CalculeChange)}");
+            return Ok(result);
         }
     }
 }

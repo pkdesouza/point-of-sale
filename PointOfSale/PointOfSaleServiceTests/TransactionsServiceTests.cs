@@ -42,7 +42,7 @@ namespace PointOfSaleServiceTests
 
 
         public async Task<List<Transactions>> GetAllTransactionsAsync() => await TransactionService.GetAllAsync();
-        
+
         [DataTestMethod]
         [DataRow()]
         public async Task GetAllTransactionsTest()
